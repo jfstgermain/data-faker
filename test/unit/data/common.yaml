@@ -1,0 +1,54 @@
+---
+definitions:
+    code:
+        type: string
+        minLength: 3
+        maxLength: 3
+    id:
+        type: integer
+        minLength: 6
+        maxLength: 6
+        faker: "random.number"
+    name:
+        type: string
+        maxLength: 40
+        faker: "name.findName"
+    description:
+        type: string
+        maxLength: 40
+        faker: "lorem.words"
+    codeIdDescription:
+        type: object
+        properties:
+            id:
+                $ref: "#/definitions/id"
+            code:
+                $ref: "#/definitions/code"
+            description:
+                $ref: "#/definitions/description"
+        required:
+            - id
+            - code
+            - description
+    codeId:
+        type: object
+        properties:
+            id:
+                $ref: "#/definitions/id"
+            code:
+                $ref: "#/definitions/code"
+        required:
+            - id
+            - code
+    codeIdName:
+        type: object
+        properties:
+            id:
+                $ref: "#/definitions/id"
+            code:
+                $ref: "#/definitions/code"
+            name:
+                $ref: "#/definitions/name"
+        required:
+            - id
+            - code

@@ -1,0 +1,196 @@
+---
+type: object
+properties:
+    unitOfMeasure:
+        $ref: "common.yaml#/definitions/codeIdDescription"
+    id:
+        $ref: "common.yaml#/definitions/id"
+    number:
+        type: integer
+        minimum: 0
+        minLength: 5
+        maxLength: 5
+        faker: random.number
+    referenceCode:
+        $ref: "common.yaml#/definitions/code"
+    destination:
+        type: object
+        properties:
+            organization:
+                $ref: "#/definitions/organization"
+            location:
+                $ref: "#/definitions/location"
+        required:
+        - organization
+        - location
+    source:
+        type: object
+        properties:
+            organization:
+                $ref: "#/definitions/organization"
+            location:
+                $ref: "#/definitions/location"
+        required:
+        - organization
+        - location
+    productType:
+        $ref: "common.yaml#/definitions/codeId"
+    item:
+        type: object
+        properties:
+            id:
+                $ref: "common.yaml#/definitions/id"
+            code:
+                type: string
+                pattern: '(\d{2,5}-\d{2,5}-\d{2,5})'
+            description:
+                $ref: "common.yaml#/definitions/description"
+        required:
+            - id
+            - code
+            - description
+    category:
+        type: object
+        properties:
+            id:
+                $ref: "common.yaml#/definitions/id"
+            code:
+                type: string
+                pattern: '(\d{2,5}-\d{2,5})'
+        required:
+            - id
+            - code
+    suggestedVendor:
+        type: object
+        properties:
+            id:
+                $ref: "common.yaml#/definitions/id"
+            name:
+                $ref: "common.yaml#/definitions/name"
+            contactId:
+                $ref: "common.yaml#/definitions/id"
+            contactName:
+                $ref: "common.yaml#/definitions/name"
+            phone:
+                type: string
+                faker: phone.phoneNumber
+            email:
+                type: string
+                faker: internet.email
+            catalogNumber:
+                type: string
+                minLength: 5
+                maxLength: 5
+                faker: random.number
+            siteId:
+                $ref: "common.yaml#/definitions/id"
+            siteName:
+                type: string
+                minLength: 10
+                maxLength: 15
+                faker: lorem.word
+        required:
+        - id
+        - name
+        - contactId
+        - contactName
+        - phone
+        - email
+        - catalogNumber
+        - siteId
+        - siteName
+    quantity:
+        type: object
+        properties:
+            ordered:
+                type: integer
+                minimum: 1
+                maximum: 5000
+                faker: random.number
+            delivered:
+                type: integer
+                minimum: 1
+                maximum: 5000
+                faker: random.number
+            received:
+                type: integer
+                minimum: 1
+                maximum: 5000
+                faker: random.number
+            cancelled:
+                type: integer
+                minimum: 1
+                maximum: 5000
+                faker: random.number
+        required:
+        - ordered
+        - delivered
+        - received
+        - cancelled
+    requestForQuoteRequired:
+        type: boolean
+        faker: random.boolean
+    unitPrice:
+        type: integer
+        minimum: 1
+        faker: random.number
+    currencyCode:
+        type: string
+        faker: finance.currencyCode
+    tax:
+        $ref: "common.yaml#/definitions/codeId"
+    noteToBuyer:
+        type: string
+        minLength: 10
+        maxLength: 20
+        faker: lorem.sentence
+    noteToReceiver:
+        type: string
+        minLength: 10
+        maxLength: 20
+        faker: lorem.sentence
+    requestedFor:
+        $ref: "common.yaml#/definitions/codeIdName"
+    requiredByDate:
+        type: string
+        faker: date.future
+    shipping:
+        type: object
+        properties:
+            location:
+                $ref: "#/definitions/location"
+        required:
+            - location
+    ledgerAllocations:
+        type: array
+        items:
+            $ref: "ledger-allocation-model.yaml"
+        uniqueItems: true
+        minItems: 2
+required:
+- id
+- number
+- referenceCode
+- destination
+- source
+- productType
+- item
+- category
+- suggestedVendor
+- quantity
+- unitOfMeasure
+- requestForQuoteRequired
+- unitPrice
+- currencyCode
+- tax
+- noteToBuyer
+- noteToReceiver
+- requestedFor
+- requiredByDate
+- shipping
+- ledgerAllocations
+definitions:
+    organization:
+        $ref: "common.yaml#/definitions/codeId"
+    location:
+        $ref: "common.yaml#/definitions/codeId"

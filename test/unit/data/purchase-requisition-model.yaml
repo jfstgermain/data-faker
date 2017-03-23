@@ -1,0 +1,74 @@
+---
+type: object
+properties:
+    id:
+        $ref: "common.yaml#/definitions/id"
+    referenceCode:
+        $ref: "common.yaml#/definitions/code"
+    description:
+        type: string
+        maxLength: 25
+        faker: lorem.words
+    authorizationStatusCode:
+        $ref: "common.yaml#/definitions/code"
+    organization:
+        type: object
+        properties:
+            id:
+                $ref: "common.yaml#/definitions/id"
+            code:
+                $ref: "common.yaml#/definitions/code"
+        required:
+            - id
+            - code
+    approver:
+        type: object
+        properties:
+            id:
+                $ref: "common.yaml#/definitions/id"
+            code:
+                $ref: "common.yaml#/definitions/code"
+            name:
+                $ref: "common.yaml#/definitions/name"
+        required:
+            - id
+            - code
+            - name
+    noteToApprover:
+        type: string
+        maxLength: 40
+        faker: lorem.sentence
+    timestamps:
+        type: object
+        properties:
+            createdBy:
+                $ref: "common.yaml#/definitions/name"
+            created:
+                type: string
+                faker: date.past
+            modifiedBy:
+                $ref: "common.yaml#/definitions/name"
+            modified:
+                type: string
+                faker: date.recent
+        required:
+            - createdBy
+            - created
+            - modifiedBy
+            - modified
+    lines:
+        type: array
+        items:
+            $ref: "requisition-line-model.yaml"
+        uniqueItems: true
+        minItems: 2
+required:
+    - id
+    - referenceCode
+    - description
+    - authorizationStatusCode
+    - organization
+    - approver
+    - noteToApprover
+    - timestamps
+    - lines
